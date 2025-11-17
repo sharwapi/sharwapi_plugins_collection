@@ -1,0 +1,8 @@
+{
+    "example":{
+        "name": "plugin's display name",
+        "author": "author's name",
+        "description": "a description of plugin",
+        "url": "url to plugin's repository"
+    }
+}
