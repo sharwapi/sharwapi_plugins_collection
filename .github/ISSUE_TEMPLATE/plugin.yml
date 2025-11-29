@@ -24,9 +24,7 @@ body:
     id: plugin-name
     attributes:
       label: 插件名称(Plugin Name)
-      description: |
-        用于标识插件的唯一名称(内容只允许**A-Z, a-z, 0-9**，填入后无法变动，若是修改插件请填写已有名称)
-        Used to identify the unique name of the plugin (only **A-Z, a-z, 0-9** are allowed, and cannot be changed after filling in. If you are modifying a plugin, please fill in the existing name)
+      description: 用于标识插件的唯一名称(内容只允许**A-Z, a-z, 0-9**，填入后无法变动，若是修改插件请填写已有名称) / Used to identify the unique name of the plugin (only **A-Z, a-z, 0-9** are allowed, and cannot be changed after filling in. If you are modifying a plugin, please fill in the existing name)
       placeholder: 示例：apimgr,guard
     validations:
       required: true
@@ -35,9 +33,7 @@ body:
     id: name
     attributes:
       label: 显示名称(Display Name)
-      description: |
-        用于在插件市场中显示的名称(内容不做限制，但推荐使用英文)
-        Used to display the name in the plugin market (no content restrictions, but English is recommended)
+      description: 用于在插件市场中显示的名称(内容不做限制，但推荐使用英文) / Used to display the name in the plugin market (no content restrictions, but English is recommended)
       placeholder: 示例：API Manager,Route Guard
     validations:
       required: true
@@ -46,9 +42,7 @@ body:
     id: author
     attributes:
       label: 作者(Author)
-      description: |
-        用于在插件市场中显示的作者名称
-        Used to display the author's name in the plugin market
+      description: 用于在插件市场中显示的作者名称 / Used to display the author's name in the plugin market
       placeholder: 示例：SharwOrange
     validations:
       required: true
@@ -57,9 +51,7 @@ body:
     id: description
     attributes:
       label: 英文介绍(Description - English)
-      description: |
-        用于在插件市场中显示的英文介绍
-        Used to display the English description in the plugin market
+      description: 用于在插件市场中显示的英文介绍 / Used to display the English description in the plugin market
       placeholder: 示例：This is a plugin for ...
     validations:
       required: true
@@ -68,9 +60,7 @@ body:
     id: description_zh
     attributes:
       label: 中文介绍(Description - Chinese)
-      description: |
-        用于在插件市场中显示的中文介绍
-        Used to display the Chinese description in the plugin market
+      description: 用于在插件市场中显示的中文介绍 / Used to display the Chinese description in the plugin market
       placeholder: 示例：这是一个用于...的插件
     validations:
       required: false
@@ -79,9 +69,7 @@ body:
     id: url
     attributes:
       label: 插件仓库或下载地址(Repository URL or Download URL)
-      description: |
-        在插件市场点击后会跳转的地址(只允许URL链接)
-        The address that will be redirected to when clicked in the plugin market (only URL links are allowed)
+      description: 在插件市场点击后会跳转的地址(只允许URL链接) / The address that will be redirected to when clicked in the plugin market (only URL links are allowed)
       placeholder: 示例：https://github.com/sharwapi/sharwapi.Plugin.apimgr
     validations:
       required: true
