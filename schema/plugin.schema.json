@@ -1,0 +1,61 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "title": "SharwAPI Plugin Manifest",
+    "description": "Schema for SharwAPI plugin registry files (version 1.0)",
+    "type":"object",
+    "required": ["id", "auth", "name", "author", "description_en", "url"],
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "Unique Plugin ID (Must match the filename without extension). Only lowercase letters and numbers allowed.",
+            "pattern": "^[a-z0-9]+$"
+        },
+        "auth": {
+          "type": "object",
+          "description": "Authentication keys for verifying plugin integrity",
+          "properties": {
+            "gpg_fingerprint": {
+              "type": "string",
+              "description": "The full fingerprint of the GPG key used to sign commits"
+            },
+            "ssh_pubkey": {
+              "type": "string",
+              "description": "Public SSH key for verification"
+            }
+          },
+          "minProperties": 1,
+          "additionalProperties": false
+        },
+        "name": {
+            "type": "string",
+            "description": "Display name of the plugin",
+            "minLength": 3,
+            "maxLength": 30
+        },
+        "author": {
+            "type": "string",
+            "description": "Author's name",
+            "minLength": 3,
+            "maxLength": 50
+        },
+        "description_en": {
+            "type": "string",
+            "description": "Description of the plugin in English",
+            "minLength": 10,
+            "maxLength": 200
+        },
+        "description_zh": {
+            "type": "string",
+            "description": "Description of the plugin in Chinese",
+            "minLength": 10,
+            "maxLength": 30
+        },
+        "url": {
+            "type": "string",
+            "description": "URL to the plugin's repository",
+            "format": "uri",
+            "pattern": "^https?://"
+        }
+    },
+    "additionalProperties": false
+}
