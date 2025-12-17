@@ -2,7 +2,7 @@
 
 [简体中文](/CONTRIBUTING_CN.md) | [English](/CONTRIBUTING.md)
 
-Thank you for contributing to the SharwAPI project! This document provides guidelines and instructions for submitting, modifying, and removing plugins within the community.
+Thank you for contributing to the SharwAPI project. This document provides guidelines for submitting plugins to the community.
 
 ## Table of Contents
 
@@ -10,7 +10,7 @@ Thank you for contributing to the SharwAPI project! This document provides guide
 - [Preparation](#preparation)
 - [Submission Workflow](#submission-workflow)
 - [Editing Workflow](#editing-workflow)
-- [Removal Workflow](#removal-workflow)
+- [Deletion Workflow](#deletion-workflow)
 
 ---
 
@@ -72,7 +72,7 @@ If you need to update plugin descriptions, URLs, or other information, follow th
 5. Return to this repository and open a Pull Request.
 * **Title Format**: Recommended to use `[Update] Your Plugin's DisplayName`.
 
-## Removal Workflow
+## Deletion Workflow
 
 If you decide to stop maintaining or remove a plugin, follow the process below:
 
