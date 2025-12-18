@@ -1,4 +1,4 @@
-# SharwAPI Plugin Registry Contribution Guidelines
+# SharwAPI Plugin Index Repository Contribution Guidelines
 
 [简体中文](/CONTRIBUTING_CN.md) | [English](/CONTRIBUTING.md)
 
