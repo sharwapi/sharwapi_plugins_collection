@@ -1,0 +1,16 @@
+{
+    "sharwapi.apimgr": {
+        "name": "API Manager",
+        "author": "SharwOrange",
+        "description_en": "A plugin that provides management interfaces for APIs",
+        "description_zh": "一个用于为API提供管理接口的插件",
+        "url": "https://github.com/sharwapi/sharwapi.Plugin.apimgr"
+    },
+    "sharwapi.guard": {
+        "name": "Route Guard",
+        "author": "SharwOrange",
+        "description_en": "A simple plugin that protects API routes using token-based authentication",
+        "description_zh": "一个简单的使用token方式保护API路由的插件",
+        "url": "https://github.com/sharwapi/sharwapi.Plugin.guard"
+    }
+}
