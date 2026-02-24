@@ -1,0 +1,105 @@
+##########################################################################
+#
+# validate.yml - SharwAPI Plugin Registry PR Validator
+#
+# Triggered on Pull Requests that modify files under data/
+# Runs utils/validate.py to check:
+#   1. JSON Schema compliance
+#   2. Filename matches 'id' field
+#   3. GPG fingerprint format
+#   4. GPG commit signature matches declared auth fingerprint
+#   5. Deletion ownership (GPG signature matches last known auth)
+#
+# On failure, posts a comment to the PR with error details.
+#
+##########################################################################
+
+name: Validate Plugin
+
+on:
+  pull_request:
+    paths:
+      - 'data/**'
+
+permissions:
+  pull-requests: write   # needed to post PR comments
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Plugin Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history needed for GPG signature lookup
+
+      - name: Fetch origin/main for comparison
+        run: git fetch origin main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install jsonschema
+
+      - name: Install GnuPG
+        run: sudo apt-get install -y gnupg
+
+      - name: Run validator
+        id: validate
+        run: |
+          set +e
+          OUTPUT=$(python utils/validate.py --ci 2>&1)
+          EXIT_CODE=$?
+          echo "$OUTPUT"
+          # Save output for PR comment (escape for GitHub multiline output)
+          {
+            echo "output<<EOF"
+            echo "$OUTPUT"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+          echo "exit_code=$EXIT_CODE" >> "$GITHUB_OUTPUT"
+          exit $EXIT_CODE
+
+      - name: Comment on PR (failure)
+        if: failure()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## ❌ Plugin Validation Failed
+
+            The automated validator found issues with your submission.
+            Please fix the errors below and push again.
+
+            <details>
+            <summary>Validation Output</summary>
+
+            ```
+            ${{ steps.validate.outputs.output }}
+            ```
+
+            </details>
+
+            ---
+
+            **Common fixes:**
+            - Ensure your filename matches the `id` field (e.g. `author.pluginname.json` with `"id": "author.pluginname"`)
+            - Sign your commit with GPG: `git commit -S`
+            - Use the helper script: `./utils/squash-my-commits.sh -S --push`
+            - Check your GPG fingerprint is a 40-character uppercase hex string
+
+      - name: Comment on PR (success)
+        if: success()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## ✅ Plugin Validation Passed
+
+            All automated checks passed. Your submission is pending manual review by a maintainer.

@@ -11,8 +11,8 @@
         },
         "id": {
             "type": "string",
-            "description": "Unique Plugin ID (Must match the filename without extension). Only lowercase letters and numbers allowed.",
-            "pattern": "^[a-z0-9]+$"
+            "description": "Format: author.pluginname (e.g. sharwapi.guard). Only lowercase letters, numbers and hyphens allowed.",
+            "pattern": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9-]*$"
         },
         "auth": {
           "type": "object",
@@ -20,7 +20,8 @@
           "properties": {
             "gpg_fingerprint": {
               "type": "string",
-              "description": "The full fingerprint of the GPG key used to sign commits"
+              "description": "The full fingerprint of the GPG key used to sign commits",
+              "pattern": "^[A-F0-9]{40}$"
             },
             "ssh_pubkey": {
               "type": "string",
@@ -52,7 +53,7 @@
             "type": "string",
             "description": "Description of the plugin in Chinese",
             "minLength": 10,
-            "maxLength": 30
+            "maxLength": 100
         },
         "url": {
             "type": "string",
