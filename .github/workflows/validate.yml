@@ -17,7 +17,6 @@
 name: Validate Plugin
 
 on:
-  workflow_dispatch:
   pull_request:
     paths:
       - 'data/**'
