@@ -4,7 +4,8 @@
 #
 # Triggered on push to main when files under data/ are changed.
 # Runs utils/aggregate.py to rebuild plugins.json from all data/*.json,
-# then commits and pushes the updated plugins.json automatically.
+# then commits and pushes the updated plugins.json using a PAT to
+# bypass branch protection rules (Ruleset requires PR for GITHUB_TOKEN).
 #
 ##########################################################################
 
@@ -19,7 +20,7 @@ on:
       - 'data/**'
 
 permissions:
-  contents: write   # needed for GitHub API file update
+  contents: write
 
 jobs:
   aggregate:
@@ -31,6 +32,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          token: ${{ secrets.PAT_TOKEN }}   # PAT bypasses branch ruleset for git push
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -49,18 +51,11 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Update plugins.json via GitHub API
+      - name: Commit and push plugins.json
         # if: steps.diff.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Base64-encode the new file content
-          CONTENT=$(base64 -w 0 plugins.json)
-          # Get the current file's SHA (required by GitHub API for updates)
-          SHA=$(gh api repos/${{ github.repository }}/contents/plugins.json --jq .sha)
-          # Update the file via API (not git push, bypasses PR ruleset requirement)
-          gh api repos/${{ github.repository }}/contents/plugins.json \
-            --method PUT \
-            -f message="chore: regenerate plugins.json [skip ci]" \
-            -f content="$CONTENT" \
-            -f sha="$SHA"
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add plugins.json
+          git commit -m "chore: regenerate plugins.json [skip ci]"
+          git push
