@@ -12,7 +12,6 @@
 name: Aggregate plugins.json
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -52,7 +51,7 @@ jobs:
           fi
 
       - name: Commit and push plugins.json
-        # if: steps.diff.outputs.changed == 'true'
+        if: steps.diff.outputs.changed == 'true'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
